@@ -17,10 +17,10 @@ Install into your project with `npm i roots-mini-records -S`.
 Then load it up as a plugin in `app.js` like this:
 
 ```js
-import records from 'roots-mini-records'
+import RecordsPlugin from 'roots-mini-records'
 
 export default {
-  plugins: [records({ test: { file: 'data.json' } })]
+  plugins: [new RecordsPlugin({ test: { file: 'data.json' } })]
 }
 ```
 
@@ -29,7 +29,7 @@ export default {
 The records plugin accepts an object, and each key in the object should contain another object as it's value, with either a `file`, `url`, or `data` property. For example:
 
 ```js
-records({
+new RecordsPlugin({
   one: { file: 'data.json' },
   two: { url: 'http://api.carrotcreative.com/staff' },
   three: { data: { foo: 'bar' } }
