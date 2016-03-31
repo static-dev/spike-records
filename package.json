@@ -1,0 +1,33 @@
+{
+  "name": "roots-mini-records",
+  "version": "0.0.0",
+  "description": "remote data &gt; static templates",
+  "main": "lib",
+  "scripts": {
+    "test": "ava"
+  },
+  "author": "carrot",
+  "license": "MIT",
+  "babel": {
+    "presets": [
+      "es2015-node5"
+    ]
+  },
+  "devDependencies": {
+    "ava": "0.13.x",
+    "babel-cli": "6.x",
+    "babel-core": "6.x",
+    "babel-preset-es2015-node5": "1.x",
+    "standard": "5.x"
+  },
+  "ava": {
+    "require": [
+      "babel-core/register"
+    ],
+    "verbose": "true"
+  },
+  "dependencies": {
+    "rest": "^1.3.2",
+    "when": "^3.7.7"
+  }
+}
