@@ -27,7 +27,8 @@
     "require": [
       "babel-core/register"
     ],
-    "verbose": "true"
+    "verbose": "true",
+    "serial": "true"
   },
   "dependencies": {
     "rest": "^1.3.2",
