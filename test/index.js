@@ -64,6 +64,12 @@ test.cb('transform option works', (t) => {
   })
 })
 
+test.todo('single template errors with no "path" param')
+test.todo('single template errors with no "path" param')
+test.todo('single template errors with non-array data')
+test.todo('single template works with "path" and "template" params')
+test.todo('single template works with "transform" param')
+
 //
 // Utilities
 //

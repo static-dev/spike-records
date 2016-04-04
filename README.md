@@ -104,6 +104,8 @@ new Records({
 
 If you use a `transform` function outside of the `template` block, this will still work. The difference is that a `transform` inside the `template` block will only use the transformed data for rendering single templates, whereas the normal `transform` option will alter that data that is injected into your view templates as locals, as well as the single templates.
 
+Inside your template, a local called `item` will be injected, which contains the contents of the item for which the template has been rendered. It will also contain all the other locals injected by roots-mini-records and otherwise, fully transformed by any `transform` functions provided.
+
 ### License & Contributing
 
 - Details on the license [can be found here](LICENSE.md)
