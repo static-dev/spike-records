@@ -52,6 +52,60 @@ Now let's get into some more details for each of the data types.
 
 The most straightforward of the options, this will just pass the data right through to the locals. Also if you provide a A+ compliant promise for a value, it will be resolved and passed in to the template.
 
+### Additional Options
+
+Alongside any of the data sources above, there are a few additional options you can provide in order to further manipulate the output.
+
+#### Transform
+
+If you want to transform the data from your source in any way before injecting it as a local, you can use this option. For example:
+
+```js
+new Records({
+  blog: {
+    url: 'http://blog.com/api/posts',
+    transform: (data) => { return data.response.posts }
+  }
+})
+```
+
+#### Template
+
+Using the template option allows you to write objects returned from records to single page templates. For example, if you are trying to render a blog as static, you might want each `post` returned from the API to be rendered as a single page by itself.
+
+The `template` option is an object with `path` and `output` keys. `path` is an absolute or relative path to a jade template to be used to render each item, and `output` is a function with the currently iterated item as a parameter, which should return a string representing a path relative to the project root where the single view should be rendered. For example:
+
+```js
+new Records({
+  blog: {
+    url: 'http://blog.com/api/posts',
+    template: {
+      path: 'templates/single.jade',
+      output: (post) => { return `posts/${post.slug}.html` }
+    }
+  }
+})
+```
+
+Note that for this feature to work correctly, the data returned from your data source must be an array. If it's not, the plugin will throw an error. If you need to transform the data before it is rendered into templates, you can do so using a `transform` function, as such:
+
+```js
+new Records({
+  blog: {
+    url: 'http://blog.com/api/posts',
+    template: {
+      transform: (data) => { return data.response.posts }
+      path: 'templates/single.jade',
+      output: (post) => { return `posts/${post.slug}.html` }
+    }
+  }
+})
+```
+
+If you use a `transform` function outside of the `template` block, this will still work. The difference is that a `transform` inside the `template` block will only use the transformed data for rendering single templates, whereas the normal `transform` option will alter that data that is injected into your view templates as locals, as well as the single templates.
+
+Inside your template, a local called `item` will be injected, which contains the contents of the item for which the template has been rendered. It will also contain all the other locals injected by roots-mini-records and otherwise, fully transformed by any `transform` functions provided.
+
 ### License & Contributing
 
 - Details on the license [can be found here](LICENSE.md)

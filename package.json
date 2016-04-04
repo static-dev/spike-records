@@ -30,6 +30,9 @@
     "serial": "true"
   },
   "dependencies": {
+    "jade": "^1.11.0",
+    "mkdirp": "^0.5.1",
+    "ramda": "^0.20.1",
     "rest": "^1.3.2",
     "when": "^3.7.7"
   }
