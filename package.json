@@ -30,6 +30,7 @@
     "serial": "true"
   },
   "dependencies": {
+    "ramda": "^0.20.1",
     "rest": "^1.3.2",
     "when": "^3.7.7"
   }
