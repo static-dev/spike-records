@@ -24,7 +24,7 @@ test.cb('loads a file correctly', (t) => {
   compileAndCheck({
     test: t,
     fixture: 'data',
-    config: { test: { file: 'fixtures/testFile.json' } },
+    config: { test: { file: '../testFile.json' } },
     verify: (_, publicPath, cb) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       t.is(out, 'true')
