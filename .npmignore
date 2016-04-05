@@ -4,3 +4,4 @@ Makefile
 contributing.md
 .editorconfig
 .travis.yml
+.babelrc
