@@ -1,6 +1,6 @@
 {
   "name": "roots-mini-records",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "remote data &gt; static templates",
   "main": "lib",
   "scripts": {
