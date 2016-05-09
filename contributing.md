@@ -9,19 +9,17 @@ If you are opening an issue about a bug, make sure that you include clear steps 
 ### Getting Set Up
 
 - Clone the project down
-- Make sure [nodejs](http://nodejs.org) has been installed and is above version `5.2.x`
+- Make sure [nodejs](http://nodejs.org) has been installed and is above version `6.0.0`
 - Run `npm install`
 - Put in work
 
 ### Testing
 
-This project is constantly evolving, and to ensure that things are secure and working for everyone, we need to have tests. If you are adding a new feature, please make sure to add a test for it. The test suite for this project uses [mocha](http://visionmedia.github.io/mocha/) and [should](https://github.com/visionmedia/should.js/)/
-
-To run the test suite, make sure you have installed mocha (`npm install mocha -g`), then you can use the `npm test` or simply `mocha` command to run the tests.
+You can run the tests with `npm test`. They are written using [ava](https://github.com/sindresorhus/ava).
 
 ### Code Style
 
-This project uses ES6, transpiled by babel for tests and on deploy. To keep a consistent coding style in the project, we are using [standard js](http://standardjs.com/). In order for tests to pass, all code must pass standard js linting. This project also uses an [editorconfig](http://editorconfig.org/). It will make life much easier if you have the [editorconfig plugin](http://editorconfig.org/#download) for your text editor. For any inline documentation in the code, we're using [JSDoc](http://usejsdoc.org/).
+This project uses ES6 directly through node >= v6. To keep a consistent coding style in the project, we are using [standard js](http://standardjs.com/). In order for tests to pass, all code must pass standard js linting. This project also uses an [editorconfig](http://editorconfig.org/). It will make life much easier if you have the [editorconfig plugin](http://editorconfig.org/#download) for your text editor. For any inline documentation in the code, we're using [JSDoc](http://usejsdoc.org/).
 
 ### Commit Cleanliness
 

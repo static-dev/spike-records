@@ -1,4 +1,4 @@
-# roots-mini-records
+# Roots Mini Records
 
 [![npm](http://img.shields.io/npm/v/roots-mini-records.svg?style=flat)](https://badge.fury.io/js/roots-mini-records) [![tests](http://img.shields.io/travis/carrot/roots-mini-records/master.svg?style=flat)](https://travis-ci.org/carrot/roots-mini-records) [![dependencies](http://img.shields.io/gemnasium/carrot/roots-mini-records.svg?style=flat)](https://david-dm.org/carrot/roots-mini-records)
 
@@ -17,9 +17,9 @@ Install into your project with `npm i roots-mini-records -S`.
 Then load it up as a plugin in `app.js` like this:
 
 ```js
-import RecordsPlugin from 'roots-mini-records'
+const RecordsPlugin = require('roots-mini-records')
 
-export default {
+module.exports = {
   plugins: [new RecordsPlugin({ test: { file: 'data.json' } })]
 }
 ```
