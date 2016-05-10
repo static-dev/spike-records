@@ -16,6 +16,8 @@
   },
   "devDependencies": {
     "ava": "^0.14.0",
+    "coveralls": "^2.11.9",
+    "nyc": "^6.4.4",
     "rimraf": "^2.5.2",
     "roots-mini": "0.0.23",
     "standard": "^7.0.1"
@@ -26,6 +28,8 @@
   "license": "MIT",
   "main": "lib",
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "coverage": "nyc ava",
+    "coveralls": "nyc --reporter=lcov ava && cat ./coverage/lcov.info | coveralls"
   }
 }
