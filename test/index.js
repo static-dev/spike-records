@@ -1,9 +1,9 @@
-import test from 'ava'
-import Roots from 'roots-mini'
-import path from 'path'
-import fs from 'fs'
-import Records from '..'
-import rimraf from 'rimraf'
+const test = require('ava')
+const Roots = require('roots-mini')
+const path = require('path')
+const fs = require('fs')
+const Records = require('..')
+const rimraf = require('rimraf')
 
 const fixturesPath = path.join(__dirname, 'fixtures')
 

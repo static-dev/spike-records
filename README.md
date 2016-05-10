@@ -1,6 +1,7 @@
-# roots-mini-records
+# Roots Mini Records
 
-[![npm](http://img.shields.io/npm/v/roots-mini-records.svg?style=flat)](https://badge.fury.io/js/roots-mini-records) [![tests](http://img.shields.io/travis/carrot/roots-mini-records/master.svg?style=flat)](https://travis-ci.org/carrot/roots-mini-records) [![dependencies](http://img.shields.io/gemnasium/carrot/roots-mini-records.svg?style=flat)](https://david-dm.org/carrot/roots-mini-records)
+[![npm](http://img.shields.io/npm/v/roots-mini-records.svg?style=flat)](https://badge.fury.io/js/roots-mini-records) [![tests](http://img.shields.io/travis/carrot/roots-mini-records/master.svg?style=flat)](https://travis-ci.org/carrot/roots-mini-records) [![dependencies](http://img.shields.io/david/carrot/roots-mini-records.svg?style=flat)](https://david-dm.org/carrot/roots-mini-records)
+[![coverage](http://img.shields.io/coveralls/carrot/roots-mini-records.svg?style=flat)](https://coveralls.io/github/carrot/roots-mini-records?branch=master)
 
 remote data -> static templates
 
@@ -17,9 +18,9 @@ Install into your project with `npm i roots-mini-records -S`.
 Then load it up as a plugin in `app.js` like this:
 
 ```js
-import RecordsPlugin from 'roots-mini-records'
+const RecordsPlugin = require('roots-mini-records')
 
-export default {
+module.exports = {
   plugins: [new RecordsPlugin({ test: { file: 'data.json' } })]
 }
 ```
