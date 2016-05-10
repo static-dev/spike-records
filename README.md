@@ -1,7 +1,7 @@
 # Roots Mini Records
 
 [![npm](http://img.shields.io/npm/v/roots-mini-records.svg?style=flat)](https://badge.fury.io/js/roots-mini-records) [![tests](http://img.shields.io/travis/carrot/roots-mini-records/master.svg?style=flat)](https://travis-ci.org/carrot/roots-mini-records) [![dependencies](http://img.shields.io/david/carrot/roots-mini-records.svg?style=flat)](https://david-dm.org/carrot/roots-mini-records)
-[![coverage](http://img.shields.io/coveralls/carrot/roots-mini-records.svg?style=flat)](https://coveralls.io/github/carrot/roots-mini-rooftop?branch=master)
+[![coverage](http://img.shields.io/coveralls/carrot/roots-mini-records.svg?style=flat)](https://coveralls.io/github/carrot/roots-mini-records?branch=master)
 
 remote data -> static templates
 
