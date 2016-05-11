@@ -1,7 +1,7 @@
-# Roots Mini Records
+# Spike Records
 
-[![npm](http://img.shields.io/npm/v/roots-mini-records.svg?style=flat)](https://badge.fury.io/js/roots-mini-records) [![tests](http://img.shields.io/travis/carrot/roots-mini-records/master.svg?style=flat)](https://travis-ci.org/carrot/roots-mini-records) [![dependencies](http://img.shields.io/david/carrot/roots-mini-records.svg?style=flat)](https://david-dm.org/carrot/roots-mini-records)
-[![coverage](http://img.shields.io/coveralls/carrot/roots-mini-records.svg?style=flat)](https://coveralls.io/github/carrot/roots-mini-records?branch=master)
+[![npm](http://img.shields.io/npm/v/spike-records.svg?style=flat)](https://badge.fury.io/js/spike-records) [![tests](http://img.shields.io/travis/static-dev/spike-records/master.svg?style=flat)](https://travis-ci.org/static-dev/spike-records) [![dependencies](http://img.shields.io/david/static-dev/spike-records.svg?style=flat)](https://david-dm.org/static-dev/spike-records)
+[![coverage](http://img.shields.io/coveralls/static-dev/spike-records.svg?style=flat)](https://coveralls.io/github/static-dev/spike-records?branch=master)
 
 remote data -> static templates
 
@@ -9,16 +9,16 @@ remote data -> static templates
 
 ### Why should you care?
 
-Static is the best, but sometimes you need to fetch data from a remote source which makes things not so static. Roots mini records is a little webpack plugin intended for use with [roots-mini](https://github.com/carrot/roots-mini) which allows you to make locals pulled from a JSON file or url returning JSON available as static locals in your jade templates.
+Static is the best, but sometimes you need to fetch data from a remote source which makes things not so static. Spike mini records is a little webpack plugin intended for use with [spike](https://github.com/static-dev/spike) which allows you to make locals pulled from a JSON file or url returning JSON available as static locals in your jade templates.
 
 ### Installation
 
-Install into your project with `npm i roots-mini-records -S`.
+Install into your project with `npm i spike-records -S`.
 
 Then load it up as a plugin in `app.js` like this:
 
 ```js
-const RecordsPlugin = require('roots-mini-records')
+const RecordsPlugin = require('spike-records')
 
 module.exports = {
   plugins: [new RecordsPlugin({ test: { file: 'data.json' } })]
@@ -43,7 +43,7 @@ Now let's get into some more details for each of the data types.
 
 #### File
 
-`file` accepts a file path, either absolute or relative to your roots project's root. So for the example above, it would resolve to `/path/to/project/data.json`.
+`file` accepts a file path, either absolute or relative to your [spike](https://github.com/static-dev/spike) project's root. So for the example above, it would resolve to `/path/to/project/data.json`.
 
 ### Url
 
@@ -105,7 +105,7 @@ new Records({
 
 If you use a `transform` function outside of the `template` block, this will still work. The difference is that a `transform` inside the `template` block will only use the transformed data for rendering single templates, whereas the normal `transform` option will alter that data that is injected into your view templates as locals, as well as the single templates.
 
-Inside your template, a local called `item` will be injected, which contains the contents of the item for which the template has been rendered. It will also contain all the other locals injected by roots-mini-records and otherwise, fully transformed by any `transform` functions provided.
+Inside your template, a local called `item` will be injected, which contains the contents of the item for which the template has been rendered. It will also contain all the other locals injected by spike-records and otherwise, fully transformed by any `transform` functions provided.
 
 ### License & Contributing
 

@@ -1,5 +1,5 @@
 const test = require('ava')
-const Roots = require('roots-mini')
+const Spike = require('spike')
 const path = require('path')
 const fs = require('fs')
 const Records = require('..')
@@ -175,7 +175,7 @@ test.cb('single template works with "transform" param', (t) => {
 
 function configProject (fixturePath, recordsConfig) {
   const projectPath = path.join(fixturesPath, fixturePath)
-  const project = new Roots({
+  const project = new Spike({
     root: projectPath,
     entry: { main: [path.join(projectPath, 'app.js')] },
     plugins: [new Records(recordsConfig)]
