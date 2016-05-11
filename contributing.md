@@ -1,6 +1,6 @@
-# Contributing to roots-mini-records
+# Contributing to spike-records
 
-Hello there! First of all, thanks for being interested in roots-mini-records and helping out. We all think you are awesome, and by contributing to open source projects, you are making the world a better place. That being said, there are a few ways to make the process of contributing code to roots-mini-records smoother, detailed below:
+Hello there! First of all, thanks for being interested in spike-records and helping out. We all think you are awesome, and by contributing to open source projects, you are making the world a better place. That being said, there are a few ways to make the process of contributing code to spike-records smoother, detailed below:
 
 ### Filing Issues
 
