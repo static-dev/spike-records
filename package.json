@@ -25,6 +25,9 @@
   "engines": {
     "node": ">= 6.0.0"
   },
+  "keywords": [
+    "spikeplugin"
+  ],
   "license": "MIT",
   "main": "lib",
   "scripts": {
