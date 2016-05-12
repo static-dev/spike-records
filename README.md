@@ -1,6 +1,7 @@
 # Spike Records
 
 [![npm](http://img.shields.io/npm/v/spike-records.svg?style=flat)](https://badge.fury.io/js/spike-records) [![tests](http://img.shields.io/travis/static-dev/spike-records/master.svg?style=flat)](https://travis-ci.org/static-dev/spike-records) [![dependencies](http://img.shields.io/david/static-dev/spike-records.svg?style=flat)](https://david-dm.org/static-dev/spike-records)
+[![coverage](https://coveralls.io/repos/github/static-dev/spike-records/badge.svg?branch=locals)](https://coveralls.io/github/static-dev/spike-records?branch=locals)
 [![coverage](http://img.shields.io/coveralls/static-dev/spike-records.svg?style=flat)](https://coveralls.io/github/static-dev/spike-records?branch=master)
 
 remote data -> static templates
