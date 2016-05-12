@@ -1,7 +1,7 @@
 {
   "name": "spike-records",
   "description": "remote data > static templates",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "carrot",
   "ava": {
     "verbose": "true",
