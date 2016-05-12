@@ -19,12 +19,15 @@
     "coveralls": "^2.11.9",
     "nyc": "^6.4.4",
     "rimraf": "^2.5.2",
-    "spike": "0.0.23",
+    "spike": "^0.2.0",
     "standard": "^7.0.1"
   },
   "engines": {
     "node": ">= 6.0.0"
   },
+  "keywords": [
+    "spikeplugin"
+  ],
   "license": "MIT",
   "main": "lib",
   "scripts": {
