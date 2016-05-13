@@ -1,23 +1,22 @@
 # Spike Records
 
-[![npm](http://img.shields.io/npm/v/spike-records.svg?style=flat)](https://badge.fury.io/js/spike-records) [![tests](http://img.shields.io/travis/static-dev/spike-records/master.svg?style=flat)](https://travis-ci.org/static-dev/spike-records) [![dependencies](http://img.shields.io/david/static-dev/spike-records.svg?style=flat)](https://david-dm.org/static-dev/spike-records)
-[![coverage](http://img.shields.io/coveralls/static-dev/spike-records.svg?style=flat)](https://coveralls.io/github/static-dev/spike-records?branch=master)
+[![npm](http://img.shields.io/npm/v/spike-records.svg?style=flat)](https://badge.fury.io/js/spike-records) [![tests](http://img.shields.io/travis/static-dev/spike-records/master.svg?style=flat)](https://travis-ci.org/static-dev/spike-records) [![dependencies](http://img.shields.io/david/static-dev/spike-records.svg?style=flat)](https://david-dm.org/static-dev/spike-records) [![coverage](http://img.shields.io/coveralls/static-dev/spike-records.svg?style=flat)](https://coveralls.io/github/static-dev/spike-records?branch=master)
 
 remote data -> static templates
 
 > **Note:** This project is in early development, and versioning is a little different. [Read this](http://markup.im/#q4_cRZ1Q) for more details.
 
-### Why should you care?
+## Why should you care?
 
-Static is the best, but sometimes you need to fetch data from a remote source which makes things not so static. Spike mini records is a little webpack plugin intended for use with [spike](https://github.com/static-dev/spike) which allows you to make locals pulled from a JSON file or url returning JSON available as static locals in your jade templates.
+Static is the best, but sometimes you need to fetch data from a remote source which makes things not so static. Spike Records is a little webpack plugin intended for use with [spike](https://github.com/static-dev/spike) which allows you to make locals pulled from a JSON file or url returning JSON available as static locals in your jade templates.
 
-### Installation
+## Installation
 
 Install into your project with `npm i spike-records -S`.
 
 Then load it up as a plugin in `app.js` like this:
 
-```js
+```javascript
 const RecordsPlugin = require('spike-records')
 
 module.exports = {
@@ -25,11 +24,11 @@ module.exports = {
 }
 ```
 
-### Usage
+## Usage
 
 The records plugin accepts an object, and each key in the object should contain another object as it's value, with either a `file`, `url`, or `data` property. For example:
 
-```js
+```javascript
 new RecordsPlugin({
   one: { file: 'data.json' },
   two: { url: 'http://api.carrotcreative.com/staff' },
@@ -41,7 +40,7 @@ Whatever data source you provide, it will be resolved and added to your jade tem
 
 Now let's get into some more details for each of the data types.
 
-#### File
+### File
 
 `file` accepts a file path, either absolute or relative to your [spike](https://github.com/static-dev/spike) project's root. So for the example above, it would resolve to `/path/to/project/data.json`.
 
@@ -53,15 +52,15 @@ Now let's get into some more details for each of the data types.
 
 The most straightforward of the options, this will just pass the data right through to the locals. Also if you provide a A+ compliant promise for a value, it will be resolved and passed in to the template.
 
-### Additional Options
+## Additional Options
 
 Alongside any of the data sources above, there are a few additional options you can provide in order to further manipulate the output.
 
-#### Transform
+### Transform
 
 If you want to transform the data from your source in any way before injecting it as a local, you can use this option. For example:
 
-```js
+```javascript
 new Records({
   blog: {
     url: 'http://blog.com/api/posts',
@@ -70,13 +69,13 @@ new Records({
 })
 ```
 
-#### Template
+### Template
 
 Using the template option allows you to write objects returned from records to single page templates. For example, if you are trying to render a blog as static, you might want each `post` returned from the API to be rendered as a single page by itself.
 
 The `template` option is an object with `path` and `output` keys. `path` is an absolute or relative path to a jade template to be used to render each item, and `output` is a function with the currently iterated item as a parameter, which should return a string representing a path relative to the project root where the single view should be rendered. For example:
 
-```js
+```javascript
 new Records({
   blog: {
     url: 'http://blog.com/api/posts',
@@ -90,7 +89,7 @@ new Records({
 
 Note that for this feature to work correctly, the data returned from your data source must be an array. If it's not, the plugin will throw an error. If you need to transform the data before it is rendered into templates, you can do so using a `transform` function, as such:
 
-```js
+```javascript
 new Records({
   blog: {
     url: 'http://blog.com/api/posts',
@@ -107,7 +106,7 @@ If you use a `transform` function outside of the `template` block, this will sti
 
 Inside your template, a local called `item` will be injected, which contains the contents of the item for which the template has been rendered. It will also contain all the other locals injected by spike-records and otherwise, fully transformed by any `transform` functions provided.
 
-### License & Contributing
+## License & Contributing
 
 - Details on the license [can be found here](LICENSE.md)
 - Details on running tests and contributing [can be found here](contributing.md)
