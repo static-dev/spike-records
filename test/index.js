@@ -1,5 +1,5 @@
 const test = require('ava')
-const Spike = require('spike')
+const Spike = require('spike-core')
 const path = require('path')
 const fs = require('fs')
 const Records = require('..')
