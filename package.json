@@ -15,7 +15,7 @@
     "when": "^3.7.7"
   },
   "devDependencies": {
-    "ava": "^0.14.0",
+    "ava": "^0.15.0",
     "coveralls": "^2.11.9",
     "nyc": "^6.4.4",
     "rimraf": "^2.5.2",
