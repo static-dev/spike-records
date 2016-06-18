@@ -10,6 +10,7 @@
   "dependencies": {
     "jade": "^1.11.0",
     "mkdirp": "^0.5.1",
+    "posthtml": "^0.8.7",
     "ramda": "^0.21.0",
     "rest": "^2.0.0",
     "when": "^3.7.7"
@@ -18,6 +19,7 @@
     "ava": "^0.15.2",
     "coveralls": "^2.11.9",
     "nyc": "^6.4.4",
+    "posthtml-exp": "^0.8.1",
     "rimraf": "^2.5.2",
     "spike-core": "^0.7.0",
     "standard": "^7.1.2"

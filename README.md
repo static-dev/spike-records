@@ -18,18 +18,33 @@ Then load it up as a plugin in `app.js` like this:
 
 ```javascript
 const RecordsPlugin = require('spike-records')
+const exp = require('posthtml-exp')
+const locals = {}
 
 module.exports = {
-  plugins: [new RecordsPlugin({ test: { file: 'data.json' } })]
+  posthtml: { defaults: [exp({ locals })] }
+  plugins: [new RecordsPlugin({
+    addDataTo: locals
+    test: { file: 'data.json' }
+  })]
 }
 ```
 
 ## Usage
 
-The records plugin accepts an object, and each key in the object should contain another object as it's value, with either a `file`, `url`, or `data` property. For example:
+The primary use case for spike-records is to inject local variables into your html templates, although technically it can be used for anything. In the example above, we use [posthtml-exp](https://github.com/posthtml/posthtml-exp), the simplest method of using variables in your html, and Spike's default template uses [posthtml-jade](https://github.com/posthtml/posthtml-jade). Both of these plugins accept an object containing locals through their options.
 
-```javascript
+In order to use the results from spike-records, you must pass it an object, which it will put the resolved data on, using the `addDataTo` key. This plugin runs very early in spike's compile process, so by the time templates are being compiled, the object will have all the data necessary on it. If you are using the data with other plugins, ensure that spike-records is the first plugin in the array.
+
+I know this is an unusual pattern for a javascript library, but the way it works is very effective in this particular system, and affords a lot of flexibility and power.
+
+The records plugin accepts an object, and each key in the object (other than `addDataTo`) should contain another object as it's value, with either a `file`, `url`, or `data` property. For example:
+
+```js
+const locals = {}
+
 new RecordsPlugin({
+  addDataTo: locals,
   one: { file: 'data.json' },
   two: { url: 'http://api.carrotcreative.com/staff' },
   three: { data: { foo: 'bar' } }
@@ -60,8 +75,11 @@ Alongside any of the data sources above, there are a few additional options you 
 
 If you want to transform the data from your source in any way before injecting it as a local, you can use this option. For example:
 
-```javascript
+```js
+const locals = {}
+
 new Records({
+  addDataTo: locals,
   blog: {
     url: 'http://blog.com/api/posts',
     transform: (data) => { return data.response.posts }
@@ -75,8 +93,11 @@ Using the template option allows you to write objects returned from records to s
 
 The `template` option is an object with `path` and `output` keys. `path` is an absolute or relative path to a jade template to be used to render each item, and `output` is a function with the currently iterated item as a parameter, which should return a string representing a path relative to the project root where the single view should be rendered. For example:
 
-```javascript
+```js
+const locals = {}
+
 new Records({
+  addDataTo: locals,
   blog: {
     url: 'http://blog.com/api/posts',
     template: {
@@ -89,8 +110,11 @@ new Records({
 
 Note that for this feature to work correctly, the data returned from your data source must be an array. If it's not, the plugin will throw an error. If you need to transform the data before it is rendered into templates, you can do so using a `transform` function, as such:
 
-```javascript
+```js
+const locals = {}
+
 new Records({
+  addDataTo: locals,
   blog: {
     url: 'http://blog.com/api/posts',
     template: {
