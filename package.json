@@ -21,7 +21,7 @@
     "nyc": "^6.4.4",
     "posthtml-exp": "^0.8.1",
     "rimraf": "^2.5.2",
-    "spike-core": "^0.7.0",
+    "spike-core": "^0.8.0",
     "standard": "^7.1.2"
   },
   "engines": {
