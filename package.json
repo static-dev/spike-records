@@ -10,7 +10,7 @@
   "dependencies": {
     "jade": "^1.11.0",
     "mkdirp": "^0.5.1",
-    "posthtml": "^0.8.7",
+    "posthtml": "^0.9.0",
     "ramda": "^0.21.0",
     "rest": "^2.0.0",
     "when": "^3.7.7"
