@@ -183,7 +183,7 @@ test.cb('single template works with "transform" param', (t) => {
       const index = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       const wow = fs.readFileSync(path.join(publicPath, 'posts/wow.html'), 'utf8')
       const amaze = fs.readFileSync(path.join(publicPath, 'posts/amaze.html'), 'utf8')
-      t.is(index.trim(), '<p>undefined</p>') // bc the transform is not global
+      t.is(index.trim(), '<p></p>') // bc the transform is not global
       t.is(wow.trim(), '<p>wow</p>')
       t.is(amaze.trim(), '<p>amaze</p>')
       cb()
