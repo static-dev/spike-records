@@ -11,17 +11,18 @@
     "jade": "^1.11.0",
     "mkdirp": "^0.5.1",
     "posthtml": "^0.9.0",
+    "posthtml-loader": "^0.10.2",
     "ramda": "^0.21.0",
     "rest": "^2.0.0",
     "when": "^3.7.7"
   },
   "devDependencies": {
     "ava": "^0.15.2",
-    "coveralls": "^2.11.9",
-    "nyc": "^7.0.0",
+    "coveralls": "^2.11.11",
+    "nyc": "^7.1.0",
     "posthtml-exp": "^0.9.0",
-    "rimraf": "^2.5.2",
-    "spike-core": "^0.8.0",
+    "rimraf": "^2.5.4",
+    "spike-core": "^0.9.0",
     "standard": "^7.1.2"
   },
   "engines": {

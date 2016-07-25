@@ -200,7 +200,7 @@ function configProject (fixturePath, recordsConfig, locals) {
   const project = new Spike({
     root: projectPath,
     entry: { main: [path.join(projectPath, 'app.js')] },
-    posthtml: { defaults: [exp({ locals })] },
+    posthtml: { plugins: [exp({ locals })] },
     ignore: ['template.html'],
     plugins: [new Records(recordsConfig)]
   })
