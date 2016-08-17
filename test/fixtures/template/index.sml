@@ -1,0 +1,1 @@
+p {{ posts.length }}
