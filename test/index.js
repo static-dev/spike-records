@@ -4,7 +4,7 @@ const path = require('path')
 const fs = require('fs')
 const Records = require('..')
 const rimraf = require('rimraf')
-const exp = require('posthtml-exp')
+const htmlStandards = require('spike-html-standards')
 
 const fixturesPath = path.join(__dirname, 'fixtures')
 
@@ -145,7 +145,7 @@ test.cb('single template works with "path" and "template" params', (t) => {
       posts: {
         data: [{ title: 'wow' }, { title: 'amaze' }],
         template: {
-          path: 'template.html',
+          path: 'template.sml',
           output: (item) => `posts/${item.title}.html`
         }
       }
@@ -174,7 +174,7 @@ test.cb('single template works with "transform" param', (t) => {
         data: { response: [{ title: 'wow' }, { title: 'amaze' }] },
         template: {
           transform: (data) => data.response,
-          path: 'template.html',
+          path: 'template.sml',
           output: (item) => `posts/${item.title}.html`
         }
       }
@@ -183,7 +183,7 @@ test.cb('single template works with "transform" param', (t) => {
       const index = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       const wow = fs.readFileSync(path.join(publicPath, 'posts/wow.html'), 'utf8')
       const amaze = fs.readFileSync(path.join(publicPath, 'posts/amaze.html'), 'utf8')
-      t.is(index.trim(), '<p></p>') // bc the transform is not global
+      t.is(index.trim(), '<p>undefined</p>') // bc the transform is not global
       t.is(wow.trim(), '<p>wow</p>')
       t.is(amaze.trim(), '<p>amaze</p>')
       cb()
@@ -200,8 +200,9 @@ function configProject (fixturePath, recordsConfig, locals) {
   const project = new Spike({
     root: projectPath,
     entry: { main: [path.join(projectPath, 'app.js')] },
-    posthtml: { plugins: [exp({ locals })] },
-    ignore: ['template.html'],
+    matchers: { html: '**/*.sml' },
+    reshape: (ctx) => htmlStandards({ webpack: ctx, locals }),
+    ignore: ['template.sml'],
     plugins: [new Records(recordsConfig)]
   })
   return { projectPath: projectPath, project: project }

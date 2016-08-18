@@ -10,19 +10,20 @@
   "dependencies": {
     "jade": "^1.11.0",
     "mkdirp": "^0.5.1",
-    "posthtml": "^0.9.0",
-    "posthtml-loader": "^0.10.2",
-    "ramda": "^0.22.0",
+    "ramda": "^0.22.1",
+    "reshape": "^0.3.0",
+    "reshape-loader": "^0.2.2",
     "rest": "^2.0.0",
     "when": "^3.7.7"
   },
   "devDependencies": {
     "ava": "^0.16.0",
-    "coveralls": "^2.11.11",
-    "nyc": "^8.0.0",
+    "coveralls": "^2.11.12",
+    "nyc": "^8.1.0",
     "posthtml-exp": "^0.9.0",
     "rimraf": "^2.5.4",
-    "spike-core": "^0.10.0",
+    "spike-core": "^0.11.1",
+    "spike-html-standards": "^0.2.1",
     "standard": "^7.1.2"
   },
   "engines": {
