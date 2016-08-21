@@ -36,7 +36,7 @@ module.exports = {
 
 ## Usage
 
-The primary use case for spike-records is to inject local variables into your html templates, although technically it can be used for anything. In the example above, we use the [spike-html-standards](https://github.com/posthtml/posthtml-exp) plugin pack to add variables (among other functionality) to your html. Spike's default template also uses `spike-html-standards`.
+The primary use case for spike-records is to inject local variables into your html templates, although technically it can be used for anything. In the example above, we use the [spike-html-standards](https://github.com/static-dev/spike-html-standards) plugin pack to add variables (among other functionality) to your html. Spike's default template also uses `spike-html-standards`.
 
 In order to use the results from spike-records, you must pass it an object, which it will put the resolved data on, using the `addDataTo` key. This plugin runs very early in spike's compile process, so by the time templates are being compiled, the object will have all the data necessary on it. If you are using the data with other plugins, ensure that spike-records is the first plugin in the array.
 
