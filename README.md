@@ -18,11 +18,15 @@ Then load it up as a plugin in `app.js` like this:
 
 ```javascript
 const RecordsPlugin = require('spike-records')
-const exp = require('posthtml-exp')
+const htmlStandards = require('spike-html-standards')
 const locals = {}
 
 module.exports = {
-  posthtml: { defaults: [exp({ locals })] }
+  reshape: (ctx) => {
+    return htmlStandards({
+      locals: { locals }
+    })
+  },
   plugins: [new RecordsPlugin({
     addDataTo: locals
     test: { file: 'data.json' }
@@ -32,7 +36,7 @@ module.exports = {
 
 ## Usage
 
-The primary use case for spike-records is to inject local variables into your html templates, although technically it can be used for anything. In the example above, we use [posthtml-exp](https://github.com/posthtml/posthtml-exp), the simplest method of using variables in your html, and Spike's default template uses [posthtml-jade](https://github.com/posthtml/posthtml-jade). Both of these plugins accept an object containing locals through their options.
+The primary use case for spike-records is to inject local variables into your html templates, although technically it can be used for anything. In the example above, we use the [spike-html-standards](https://github.com/static-dev/spike-html-standards) plugin pack to add variables (among other functionality) to your html. Spike's default template also uses `spike-html-standards`.
 
 In order to use the results from spike-records, you must pass it an object, which it will put the resolved data on, using the `addDataTo` key. This plugin runs very early in spike's compile process, so by the time templates are being compiled, the object will have all the data necessary on it. If you are using the data with other plugins, ensure that spike-records is the first plugin in the array.
 
@@ -101,7 +105,7 @@ new Records({
   blog: {
     url: 'http://blog.com/api/posts',
     template: {
-      path: 'templates/single.jade',
+      path: 'templates/single.sml',
       output: (post) => { return `posts/${post.slug}.html` }
     }
   }
@@ -119,7 +123,7 @@ new Records({
     url: 'http://blog.com/api/posts',
     template: {
       transform: (data) => { return data.response.posts }
-      path: 'templates/single.jade',
+      path: 'templates/single.sml',
       output: (post) => { return `posts/${post.slug}.html` }
     }
   }
