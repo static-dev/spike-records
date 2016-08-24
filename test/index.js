@@ -120,7 +120,7 @@ test.cb('single template errors with non-array data', (t) => {
     addDataTo: locals,
     posts: {
       data: 'foo',
-      template: { path: 'template.jade', output: () => { return 'wow.html' } }
+      template: { path: 'template.sml', output: () => { return 'wow.html' } }
     }, locals
   })
 

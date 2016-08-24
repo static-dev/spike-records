@@ -1,15 +1,14 @@
 {
   "name": "spike-records",
-  "description": "remote data > static templates",
+  "description": "compile remote data into your templates",
   "version": "0.3.0",
-  "author": "carrot",
+  "author": "Jeff Escalante",
   "ava": {
     "verbose": "true",
     "serial": "true"
   },
   "bugs": "https://github.com/static-dev/spike-records/issues",
   "dependencies": {
-    "jade": "^1.11.0",
     "mkdirp": "^0.5.1",
     "ramda": "^0.22.1",
     "reshape": "^0.3.0",
@@ -25,7 +24,7 @@
     "rimraf": "^2.5.4",
     "spike-core": "^0.11.1",
     "spike-html-standards": "^0.3.0",
-    "standard": "^7.1.2"
+    "standard": "^8.0.0"
   },
   "engines": {
     "node": ">= 6.0.0"
