@@ -22,7 +22,7 @@
     "nyc": "^8.1.0",
     "posthtml-exp": "^0.9.0",
     "rimraf": "^2.5.4",
-    "spike-core": "^0.11.1",
+    "spike-core": "^0.12.0",
     "spike-html-standards": "^0.3.0",
     "standard": "^8.0.0"
   },
