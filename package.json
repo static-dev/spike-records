@@ -10,7 +10,6 @@
   "bugs": "https://github.com/static-dev/spike-records/issues",
   "dependencies": {
     "mkdirp": "^0.5.1",
-    "ramda": "^0.22.1",
     "reshape": "^0.3.0",
     "reshape-loader": "^0.2.2",
     "rest": "^2.0.0",

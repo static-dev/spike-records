@@ -121,7 +121,8 @@ test.cb('single template errors with non-array data', (t) => {
     posts: {
       data: 'foo',
       template: { path: 'template.sml', output: () => { return 'wow.html' } }
-    }, locals
+    },
+    locals
   })
 
   project.on('warning', t.end)
@@ -145,7 +146,7 @@ test.cb('single template works with "path" and "template" params', (t) => {
       posts: {
         data: [{ title: 'wow' }, { title: 'amaze' }],
         template: {
-          path: 'template.sml',
+          path: 'template.sgr',
           output: (item) => `posts/${item.title}.html`
         }
       }
@@ -174,7 +175,7 @@ test.cb('single template works with "transform" param', (t) => {
         data: { response: [{ title: 'wow' }, { title: 'amaze' }] },
         template: {
           transform: (data) => data.response,
-          path: 'template.sml',
+          path: 'template.sgr',
           output: (item) => `posts/${item.title}.html`
         }
       }
@@ -200,7 +201,7 @@ function configProject (fixturePath, recordsConfig, locals) {
   const project = new Spike({
     root: projectPath,
     entry: { main: [path.join(projectPath, 'app.js')] },
-    matchers: { html: '**/*.sml' },
+    matchers: { html: '*(**/)*.sgr' },
     reshape: (ctx) => htmlStandards({ webpack: ctx, locals }),
     ignore: ['template.sml'],
     plugins: [new Records(recordsConfig)]
