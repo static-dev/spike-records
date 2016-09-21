@@ -17,18 +17,14 @@ Install into your project with `npm i spike-records -S`.
 Then load it up as a plugin in `app.js` like this:
 
 ```javascript
-const RecordsPlugin = require('spike-records')
-const htmlStandards = require('spike-html-standards')
+const Records = require('spike-records')
+const standard = require('reshape-standard')
 const locals = {}
 
 module.exports = {
-  reshape: (ctx) => {
-    return htmlStandards({
-      locals: { locals }
-    })
-  },
-  plugins: [new RecordsPlugin({
-    addDataTo: locals
+  reshape: (ctx) => standard({ locals }),
+  plugins: [new Records({
+    addDataTo: locals,
     test: { file: 'data.json' }
   })]
 }
@@ -36,7 +32,7 @@ module.exports = {
 
 ## Usage
 
-The primary use case for spike-records is to inject local variables into your html templates, although technically it can be used for anything. In the example above, we use the [spike-html-standards](https://github.com/static-dev/spike-html-standards) plugin pack to add variables (among other functionality) to your html. Spike's default template also uses `spike-html-standards`.
+The primary use case for spike-records is to inject local variables into your html templates, although technically it can be used for anything. In the example above, we use the [reshape-standard](https://github.com/reshape/standard) plugin pack to add variables (among other functionality) to your html. Spike's default template also uses `reshape-standard`.
 
 In order to use the results from spike-records, you must pass it an object, which it will put the resolved data on, using the `addDataTo` key. This plugin runs very early in spike's compile process, so by the time templates are being compiled, the object will have all the data necessary on it. If you are using the data with other plugins, ensure that spike-records is the first plugin in the array.
 
@@ -47,7 +43,7 @@ The records plugin accepts an object, and each key in the object (other than `ad
 ```js
 const locals = {}
 
-new RecordsPlugin({
+new Records({
   addDataTo: locals,
   one: { file: 'data.json' },
   two: { url: 'http://api.carrotcreative.com/staff' },
@@ -55,7 +51,11 @@ new RecordsPlugin({
 })
 ```
 
-Whatever data source you provide, it will be resolved and added to your jade templates as `locals[key]`. So for example, if you were trying to access `three` in your templates, you could access it with `locals.three.foo`, and it would return `'bar'`.
+Whatever data source you provide, it will be resolved and added to your view templates as `[key]`. So for example, if you were trying to access `three` in your templates, you could access it with `three.foo`, and it would return `'bar'`, as such:
+
+```jade
+p {{ three.foo }}
+```
 
 Now let's get into some more details for each of the data types.
 
