@@ -5,3 +5,4 @@ contributing.md
 .editorconfig
 .travis.yml
 .babelrc
+yarn.lock
