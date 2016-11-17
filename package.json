@@ -10,13 +10,13 @@
   "bugs": "https://github.com/static-dev/spike-records/issues",
   "dependencies": {
     "reshape": "^0.3.0",
-    "reshape-loader": "^0.2.2",
+    "reshape-loader": "^0.3.0",
     "rest": "^2.0.0",
     "when": "^3.7.7"
   },
   "devDependencies": {
     "ava": "^0.17.0",
-    "coveralls": "^2.11.12",
+    "coveralls": "^2.11.15",
     "nyc": "^9.0.1",
     "posthtml-exp": "^0.9.0",
     "rimraf": "^2.5.4",
