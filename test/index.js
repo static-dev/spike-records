@@ -81,7 +81,8 @@ test.cb('single template errors with no "path" param', (t) => {
     posts: {
       data: [{ title: 'wow' }, { title: 'amaze' }],
       template: {}
-    }, locals
+    },
+    locals
   })
 
   project.on('warning', t.end)
@@ -101,7 +102,8 @@ test.cb('single template errors with no "output" param', (t) => {
     posts: {
       data: [{ title: 'wow' }, { title: 'amaze' }],
       template: { path: 'foo' }
-    }, locals
+    },
+    locals
   })
 
   project.on('warning', t.end)
