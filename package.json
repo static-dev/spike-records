@@ -11,7 +11,7 @@
   "dependencies": {
     "mkdirp": "^0.5.1",
     "reshape": "^0.3.0",
-    "reshape-loader": "^0.2.2",
+    "reshape-loader": "^0.3.0",
     "rest": "^2.0.0",
     "when": "^3.7.7"
   },
