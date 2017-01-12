@@ -9,6 +9,7 @@
   },
   "bugs": "https://github.com/static-dev/spike-records/issues",
   "dependencies": {
+    "es6bindall": "^0.0.9",
     "reshape": "^0.3.0",
     "reshape-loader": "^0.3.0",
     "rest": "^2.0.0",
@@ -20,7 +21,7 @@
     "nyc": "^10.0.0",
     "posthtml-exp": "^0.9.0",
     "rimraf": "^2.5.4",
-    "spike-core": "^0.12.0",
+    "spike-core": "^0.13.1",
     "spike-html-standards": "^0.3.0",
     "standard": "^8.0.0"
   },

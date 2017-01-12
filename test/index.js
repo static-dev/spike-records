@@ -88,7 +88,7 @@ test.cb('single template errors with no "path" param', (t) => {
   project.on('warning', t.end)
   project.on('compile', t.end)
   project.on('error', (err) => {
-    t.is(err.message, 'missing template.path')
+    t.is(err.toString(), 'Error: missing template.path')
     t.end()
   })
 
@@ -109,7 +109,7 @@ test.cb('single template errors with no "output" param', (t) => {
   project.on('warning', t.end)
   project.on('compile', t.end)
   project.on('error', (err) => {
-    t.is(err.message, 'missing template.output')
+    t.is(err.toString(), 'Error: missing template.output')
     t.end()
   })
 
@@ -122,7 +122,7 @@ test.cb('single template errors with non-array data', (t) => {
     addDataTo: locals,
     posts: {
       data: 'foo',
-      template: { path: 'template.sml', output: () => { return 'wow.html' } }
+      template: { path: 'template.sgr', output: () => { return 'wow.html' } }
     },
     locals
   })
@@ -130,7 +130,7 @@ test.cb('single template errors with non-array data', (t) => {
   project.on('warning', t.end)
   project.on('compile', t.end)
   project.on('error', (err) => {
-    t.is(err.message, 'template data is not an array')
+    t.is(err.toString(), 'Error: template data is not an array')
     t.end()
   })
 
@@ -202,13 +202,13 @@ function configProject (fixturePath, recordsConfig, locals) {
   const projectPath = path.join(fixturesPath, fixturePath)
   const project = new Spike({
     root: projectPath,
-    entry: { main: [path.join(projectPath, 'app.js')] },
+    entry: { main: path.join(projectPath, 'app.js') },
     matchers: { html: '*(**/)*.sgr' },
     reshape: (ctx) => htmlStandards({ webpack: ctx, locals }),
-    ignore: ['template.sml'],
+    ignore: ['template.sgr'],
     plugins: [new Records(recordsConfig)]
   })
-  return { projectPath: projectPath, project: project }
+  return { projectPath, project }
 }
 
 function compileProject (project, t, cb) {
