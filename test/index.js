@@ -4,59 +4,52 @@ const path = require('path')
 const fs = require('fs')
 const Records = require('..')
 const rimraf = require('rimraf')
-const htmlStandards = require('spike-html-standards')
+const htmlStandards = require('reshape-standard')
 
 const fixturesPath = path.join(__dirname, 'fixtures')
 
-test.cb('loads data correctly', (t) => {
+test('loads data correctly', (t) => {
   const locals = {}
-  compileAndCheck({
-    test: t,
+  return compileAndCheck({
     fixture: 'data',
     locals: locals,
     config: { addDataTo: locals, test: { data: { result: 'true' } } },
     verify: (_, publicPath, cb) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       t.is(out.trim(), '<p>true</p>')
-      cb()
     }
   })
 })
 
-test.cb('loads a file correctly', (t) => {
+test('loads a file correctly', (t) => {
   const locals = {}
-  compileAndCheck({
-    test: t,
+  return compileAndCheck({
     fixture: 'data',
     locals: locals,
     config: { addDataTo: locals, test: { file: '../testFile.json' } },
     verify: (_, publicPath, cb) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       t.is(out.trim(), '<p>true</p>')
-      cb()
     }
   })
 })
 
-test.cb('loads a url correctly', (t) => {
+test('loads a url correctly', (t) => {
   const locals = {}
-  compileAndCheck({
-    test: t,
+  return compileAndCheck({
     fixture: 'data',
     locals: locals,
     config: { addDataTo: locals, test: { url: 'http://api.bycarrot.com/staff' } },
     verify: (_, publicPath, cb) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       t.is(out.trim(), '<p>true</p>')
-      cb()
     }
   })
 })
 
-test.cb('transform option works', (t) => {
+test('transform option works', (t) => {
   const locals = {}
-  compileAndCheck({
-    test: t,
+  return compileAndCheck({
     fixture: 'data',
     locals: locals,
     config: {
@@ -69,7 +62,6 @@ test.cb('transform option works', (t) => {
     verify: (_, publicPath, cb) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       t.is(out.trim(), '<p>false</p>')
-      cb()
     }
   })
 })
@@ -137,10 +129,9 @@ test.cb('single template errors with non-array data', (t) => {
   project.compile()
 })
 
-test.cb('single template works with "path" and "template" params', (t) => {
+test('single template works with "path" and "template" params', (t) => {
   const locals = {}
-  compileAndCheck({
-    test: t,
+  return compileAndCheck({
     fixture: 'template',
     locals: locals,
     config: {
@@ -160,15 +151,13 @@ test.cb('single template works with "path" and "template" params', (t) => {
       t.is(index.trim(), '<p>2</p>')
       t.is(wow.trim(), '<p>wow</p>')
       t.is(amaze.trim(), '<p>amaze</p>')
-      cb()
     }
   })
 })
 
-test.cb('single template works with "transform" param', (t) => {
+test('single template works with "transform" param', (t) => {
   const locals = {}
-  compileAndCheck({
-    test: t,
+  return compileAndCheck({
     fixture: 'template',
     locals: locals,
     config: {
@@ -189,7 +178,6 @@ test.cb('single template works with "transform" param', (t) => {
       t.is(index.trim(), '<p>undefined</p>') // bc the transform is not global
       t.is(wow.trim(), '<p>wow</p>')
       t.is(amaze.trim(), '<p>amaze</p>')
-      cb()
     }
   })
 })
@@ -204,24 +192,35 @@ function configProject (fixturePath, recordsConfig, locals) {
     root: projectPath,
     entry: { main: path.join(projectPath, 'app.js') },
     matchers: { html: '*(**/)*.sgr' },
-    reshape: (ctx) => htmlStandards({ webpack: ctx, locals }),
+    reshape: htmlStandards({ locals: () => { return locals } }),
     ignore: ['template.sgr'],
     plugins: [new Records(recordsConfig)]
   })
   return { projectPath, project }
 }
 
-function compileProject (project, t, cb) {
-  project.on('error', t.end)
-  project.on('warning', t.end)
-  project.on('compile', cb)
-  project.compile()
+function compileProject (project) {
+  return new Promise((resolve, reject) => {
+    project.on('error', reject)
+    project.on('warning', reject)
+    project.on('compile', resolve)
+    project.compile()
+  })
 }
 
 function compileAndCheck (opts) {
   const {projectPath, project} = configProject(opts.fixture, opts.config, opts.locals)
   const publicPath = path.join(projectPath, 'public')
-  compileProject(project, opts.test, (data) => {
-    opts.verify(data, publicPath, () => { rimraf(publicPath, opts.test.end) })
+  return compileProject(project)
+    .then((data) => opts.verify(data, publicPath))
+    .then(() => rimrafPromise(publicPath))
+}
+
+function rimrafPromise (dir) {
+  return new Promise((resolve, reject) => {
+    rimraf(dir, (err) => {
+      if (err) return reject(err)
+      resolve()
+    })
   })
 }
