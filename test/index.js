@@ -12,9 +12,9 @@ test('loads data correctly', (t) => {
   const locals = {}
   return compileAndCheck({
     fixture: 'data',
-    locals: locals,
+    locals,
     config: { addDataTo: locals, test: { data: { result: 'true' } } },
-    verify: (_, publicPath, cb) => {
+    verify: (_, publicPath) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       t.is(out.trim(), '<p>true</p>')
     }
@@ -186,6 +186,14 @@ test('single template works with "transform" param', (t) => {
 // Utilities
 //
 
+/**
+ * Given a fixture, records config, and locals, set up a spike project instance
+ * and return the instance and project path for compilation.
+ * @param  {String} fixturePath - path to the text fixture project
+ * @param  {Object} recordsConfig - config to be passed to record plugin
+ * @param  {Object} locals - locals to be passed to views
+ * @return {Object} projectPath (str) and project (Spike instance)
+ */
 function configProject (fixturePath, recordsConfig, locals) {
   const projectPath = path.join(fixturesPath, fixturePath)
   const project = new Spike({
@@ -199,6 +207,12 @@ function configProject (fixturePath, recordsConfig, locals) {
   return { projectPath, project }
 }
 
+/**
+ * Given a spike project instance, compile it, and return a promise for the
+ * results.
+ * @param  {Spike} project - spike project instance
+ * @return {Promise} promise for a compiled project
+ */
 function compileProject (project) {
   return new Promise((resolve, reject) => {
     project.on('error', reject)
@@ -208,6 +222,17 @@ function compileProject (project) {
   })
 }
 
+/**
+ * Compile a spike project and offer a callback hook to run your tests on the
+ * results of the project.
+ * @param {Object} opts - configuration object
+ * @param {String} opts.fixture - name of the project folder inside /fixtures
+ * @param {Object} opts.locals - object to be passed to view engine
+ * @param {Object} opts.config - config object for records plugin
+ * @param {Function} opts.verify - callback for when the project has compiled,
+ * passes webpack compile result data and the project's public path
+ * @return {Promise} promise for completed compiled project
+ */
 function compileAndCheck (opts) {
   const {projectPath, project} = configProject(opts.fixture, opts.config, opts.locals)
   const publicPath = path.join(projectPath, 'public')
