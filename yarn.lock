@@ -2898,14 +2898,14 @@ js-tokens@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.1.tgz#08e9f132484a2c45a30907e9dc4d5567b7f114d7"
 
-js-yaml@3.6.1, js-yaml@^3.4.5:
+js-yaml@3.6.1, js-yaml@^3.4.5, js-yaml@^3.5.1:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.6.1.tgz#6e5fe67d8b205ce4d22fad05b7781e8dadcc4b30"
   dependencies:
     argparse "^1.0.7"
     esprima "^2.6.0"
 
-js-yaml@^3.4.3, js-yaml@^3.5.1, js-yaml@~3.7.0:
+js-yaml@^3.4.3, js-yaml@~3.7.0:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.7.0.tgz#5c967ddd837a9bfdca5f2de84253abe8a1c03b80"
   dependencies:
@@ -3938,7 +3938,7 @@ postcss-load-plugins@^2.3.0:
     cosmiconfig "^2.1.1"
     object-assign "^4.1.0"
 
-"postcss-loader@github:jescalan/postcss-loader":
+postcss-loader@jescalan/postcss-loader:
   version "1.2.2"
   resolved "https://codeload.github.com/jescalan/postcss-loader/tar.gz/1a8e508c56ac2ce1742d5e93e51926b31578a056"
   dependencies:
@@ -4914,6 +4914,15 @@ spike-core@next:
     spike-util next
     sprout "^1.2.1"
     webpack "^2.2.1"
+    when "^3.7.7"
+
+spike-util@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/spike-util/-/spike-util-0.4.0.tgz#b2797a0c261db119c86de80cc073ca7c6f6eefb9"
+  dependencies:
+    filewrap "0.1.0"
+    glob "^7.0.4"
+    micromatch "^2.3.8"
     when "^3.7.7"
 
 spike-util@next:
