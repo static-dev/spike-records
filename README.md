@@ -105,7 +105,7 @@ new Records({
   blog: {
     url: 'http://blog.com/api/posts',
     template: {
-      path: 'templates/single.sml',
+      path: 'templates/single.sgr',
       output: (post) => { return `posts/${post.slug}.html` }
     }
   }
