@@ -1,1 +1,1 @@
-p {{ test.data.allCakes[0].image.url }}
+p {{ test.data.allPosts[0].description }}

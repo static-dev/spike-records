@@ -56,17 +56,14 @@ test('loads a graphql endpoint correctly', (t) => {
       addDataTo: locals,
       test: {
         graphql: {
-          url: 'https://api.graphcms.com/simple/v1/cizc7giha88sc0159irzllhl2',
-          query: '{ allCakes { image { url } } }',
-          headers: {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0ODg4NjM5ODMsImNsaWVudElkIjoiY2l2Z29zNmNqMDE5MjAxODRucDAxZGRkMiIsInByb2plY3RJZCI6ImNpemM3Z2loYTg4c2MwMTU5aXJ6bGxobDIiLCJwZXJtYW5lbnRBdXRoVG9rZW5JZCI6ImNpenozNjlxcm0zY3QwMTMzNGphY3lpYTYifQ.DVofROGTyUfpbot1HDXURT1uKLzTsJ7ly_p61ITAqY4'
-          }
+          url: 'https://api.graph.cool/simple/v1/cizz44m7pmezz016487cxed19',
+          query: '{ allPosts { description } }'
         }
       }
     },
     verify: (_, publicPath, cb) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
-      t.regex(out, /media\.graphcms\.com/)
+      t.regex(out, /test/)
     }
   })
 })
