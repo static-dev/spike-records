@@ -23,7 +23,7 @@
     "rimraf": "^2.5.4",
     "spike-core": "^0.13.3",
     "spike-html-standards": "^0.3.0",
-    "standard": "^8.0.0"
+    "standard": "^9.0.2"
   },
   "engines": {
     "node": ">= 6.0.0"
