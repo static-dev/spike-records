@@ -47,6 +47,27 @@ test('loads a url correctly', (t) => {
   })
 })
 
+test('loads a graphql endpoint correctly', (t) => {
+  const locals = {}
+  return compileAndCheck({
+    fixture: 'graphql',
+    locals: locals,
+    config: {
+      addDataTo: locals,
+      test: {
+        graphql: {
+          url: 'https://api.graph.cool/simple/v1/cizz44m7pmezz016487cxed19',
+          query: '{ allPosts { description } }'
+        }
+      }
+    },
+    verify: (_, publicPath, cb) => {
+      const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
+      t.regex(out, /test/)
+    }
+  })
+})
+
 test('transform option works', (t) => {
   const locals = {}
   return compileAndCheck({

@@ -8,7 +8,14 @@ remote data -> static templates
 
 ## Why should you care?
 
-Static is the best, but sometimes you need to fetch data from a remote source which makes things not so static. Spike Records is a little webpack plugin intended for use with [spike](https://github.com/static-dev/spike) which allows you to make locals pulled from a JSON file or url returning JSON available as static locals in your jade templates.
+Static is the best, but sometimes you need to fetch data from a remote source which makes things not so static. Spike Records is a little webpack plugin intended for use with [spike](https://github.com/static-dev/spike) which allows you to make data pulled from a file or url available in your view templates.
+
+It can pull data from the following places:
+
+- A javascript object
+- A file containing a javascript object or JSON
+- A URL that returns JSON
+- A [GraphQL](http://graphql.org) endpoint
 
 ## Installation
 
@@ -34,9 +41,9 @@ module.exports = {
 
 The primary use case for spike-records is to inject local variables into your html templates, although technically it can be used for anything. In the example above, we use the [reshape-standard](https://github.com/reshape/standard) plugin pack to add variables (among other functionality) to your html. Spike's default template also uses `reshape-standard`.
 
-In order to use the results from spike-records, you must pass it an object, which it will put the resolved data on, using the `addDataTo` key. This plugin runs very early in spike's compile process, so by the time templates are being compiled, the object will have all the data necessary on it. If you are using the data with other plugins, ensure that spike-records is the first plugin in the array.
+In order to use the results from spike-records, you must pass it an object, which it will put the resolved data on, using the `addDataTo` key. This plugin runs early in spike's compile process, so by the time templates are being compiled, the object will have all the data necessary on it. If you are using the data with other plugins, ensure that spike-records is the first plugin in the array.
 
-I know this is an unusual pattern for a javascript library, but the way it works is very effective in this particular system, and affords a lot of flexibility and power.
+I know this is an unusual pattern for a javascript library, but the way it works is quite effective in this particular system, and affords a lot of flexibility and power.
 
 The records plugin accepts an object, and each key in the object (other than `addDataTo`) should contain another object as it's value, with either a `file`, `url`, or `data` property. For example:
 
@@ -47,7 +54,15 @@ new Records({
   addDataTo: locals,
   one: { file: 'data.json' },
   two: { url: 'http://api.carrotcreative.com/staff' },
-  three: { data: { foo: 'bar' } }
+  three: { data: { foo: 'bar' } },
+  four: {
+    graphql: {
+      url: 'http://localhost:1234',
+      query: 'query { allPosts { title } }',
+      variables: 'xxx', // optional
+      headers: { authorization: 'Bearer xxx' } // optional
+    }
+  }
 })
 ```
 
