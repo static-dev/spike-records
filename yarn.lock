@@ -3100,26 +3100,26 @@ js-tokens@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.1.tgz#08e9f132484a2c45a30907e9dc4d5567b7f114d7"
 
-js-yaml@3.6.1, js-yaml@^3.4.5:
+js-yaml@3.6.1:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.6.1.tgz#6e5fe67d8b205ce4d22fad05b7781e8dadcc4b30"
   dependencies:
     argparse "^1.0.7"
     esprima "^2.6.0"
 
-js-yaml@^3.4.3, js-yaml@~3.7.0:
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.7.0.tgz#5c967ddd837a9bfdca5f2de84253abe8a1c03b80"
-  dependencies:
-    argparse "^1.0.7"
-    esprima "^2.6.0"
-
-js-yaml@^3.5.1, js-yaml@^3.8.2:
+js-yaml@^3.4.3, js-yaml@^3.4.5, js-yaml@^3.5.1, js-yaml@^3.8.2:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.8.3.tgz#33a05ec481c850c8875929166fe1beb61c728766"
   dependencies:
     argparse "^1.0.7"
     esprima "^3.1.1"
+
+js-yaml@~3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.7.0.tgz#5c967ddd837a9bfdca5f2de84253abe8a1c03b80"
+  dependencies:
+    argparse "^1.0.7"
+    esprima "^2.6.0"
 
 jsbn@~0.1.0:
   version "0.1.1"
@@ -4813,6 +4813,13 @@ reshape-layouts@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/reshape-layouts/-/reshape-layouts-1.0.0.tgz#d6eff8a35a54ea9380a829e32525c9c4b9fb2a59"
 
+reshape-loader@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/reshape-loader/-/reshape-loader-1.0.0.tgz#c5bf46ad99715b216f87a1b772c4bc2695121cd6"
+  dependencies:
+    reshape "^0.4.1"
+    reshape-include "^1.0.0"
+
 reshape-loader@next:
   version "0.5.0-2"
   resolved "https://registry.yarnpkg.com/reshape-loader/-/reshape-loader-0.5.0-2.tgz#a70fdf3697615c0c7be79912c34e137b2abf22af"
@@ -5229,6 +5236,15 @@ spike-core@^1.0.0:
     sprout "^1.2.1"
     webpack "^2.3.3"
     when "^3.7.8"
+
+spike-util@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/spike-util/-/spike-util-1.0.0.tgz#789306a4c419bb3e88d6c2bfee8069d8e28e96b8"
+  dependencies:
+    filewrap "0.1.0"
+    glob "^7.0.4"
+    micromatch "^2.3.8"
+    when "^3.7.7"
 
 spike-util@next:
   version "0.5.0-0"
