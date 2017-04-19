@@ -4,8 +4,6 @@
 
 remote data -> static templates
 
-> **Note:** This project is in early development, and versioning is a little different. [Read this](http://markup.im/#q4_cRZ1Q) for more details.
-
 ## Why should you care?
 
 Static is the best, but sometimes you need to fetch data from a remote source which makes things not so static. Spike Records is a little webpack plugin intended for use with [spike](https://github.com/static-dev/spike) which allows you to make data pulled from a file or url available in your view templates.
@@ -48,22 +46,25 @@ I know this is an unusual pattern for a javascript library, but the way it works
 The records plugin accepts an object, and each key in the object (other than `addDataTo`) should contain another object as it's value, with either a `file`, `url`, or `data` property. For example:
 
 ```js
+const Records = require('spike-records')
 const locals = {}
 
-new Records({
-  addDataTo: locals,
-  one: { file: 'data.json' },
-  two: { url: 'http://api.carrotcreative.com/staff' },
-  three: { data: { foo: 'bar' } },
-  four: {
-    graphql: {
-      url: 'http://localhost:1234',
-      query: 'query { allPosts { title } }',
-      variables: 'xxx', // optional
-      headers: { authorization: 'Bearer xxx' } // optional
+module.exports = {
+  plugins: [new Records({
+    addDataTo: locals,
+    one: { file: 'data.json' },
+    two: { url: 'http://api.carrotcreative.com/staff' },
+    three: { data: { foo: 'bar' } },
+    four: {
+      graphql: {
+        url: 'http://localhost:1234',
+        query: 'query { allPosts { title } }',
+        variables: 'xxx', // optional
+        headers: { authorization: 'Bearer xxx' } // optional
+      }
     }
-  }
-})
+  })]
+}
 ```
 
 Whatever data source you provide, it will be resolved and added to your view templates as `[key]`. So for example, if you were trying to access `three` in your templates, you could access it with `three.foo`, and it would return `'bar'`, as such:
@@ -95,15 +96,18 @@ Alongside any of the data sources above, there are a few additional options you 
 If you want to transform the data from your source in any way before injecting it as a local, you can use this option. For example:
 
 ```js
+const Records = require('spike-records')
 const locals = {}
 
-new Records({
-  addDataTo: locals,
-  blog: {
-    url: 'http://blog.com/api/posts',
-    transform: (data) => { return data.response.posts }
-  }
-})
+module.exports = {
+  plugins: [new Records({
+    addDataTo: locals,
+    blog: {
+      url: 'http://blog.com/api/posts',
+      transform: (data) => { return data.response.posts }
+    }
+  })]
+}
 ```
 
 ### Template
@@ -113,36 +117,42 @@ Using the template option allows you to write objects returned from records to s
 The `template` option is an object with `path` and `output` keys. `path` is an absolute or relative path to a jade template to be used to render each item, and `output` is a function with the currently iterated item as a parameter, which should return a string representing a path relative to the project root where the single view should be rendered. For example:
 
 ```js
+const Records = require('spike-records')
 const locals = {}
 
-new Records({
-  addDataTo: locals,
-  blog: {
-    url: 'http://blog.com/api/posts',
-    template: {
-      path: 'templates/single.sgr',
-      output: (post) => { return `posts/${post.slug}.html` }
+module.exports = {
+  plugins: [new Records({
+    addDataTo: locals,
+    blog: {
+      url: 'http://blog.com/api/posts',
+      template: {
+        path: 'templates/single.sgr',
+        output: (post) => { return `posts/${post.slug}.html` }
+      }
     }
-  }
-})
+  })]
+}
 ```
 
 Note that for this feature to work correctly, the data returned from your data source must be an array. If it's not, the plugin will throw an error. If you need to transform the data before it is rendered into templates, you can do so using a `transform` function, as such:
 
 ```js
+const Records = require('spike-records')
 const locals = {}
 
-new Records({
-  addDataTo: locals,
-  blog: {
-    url: 'http://blog.com/api/posts',
-    template: {
-      transform: (data) => { return data.response.posts }
-      path: 'templates/single.sml',
-      output: (post) => { return `posts/${post.slug}.html` }
+module.exports = {
+  plugins: [new Records({
+    addDataTo: locals,
+    blog: {
+      url: 'http://blog.com/api/posts',
+      template: {
+        transform: (data) => { return data.response.posts },
+        path: 'templates/single.sml',
+        output: (post) => { return `posts/${post.slug}.html` }
+      }
     }
-  }
-})
+  })]
+}
 ```
 
 If you use a `transform` function outside of the `template` block, this will still work. The difference is that a `transform` inside the `template` block will only use the transformed data for rendering single templates, whereas the normal `transform` option will alter that data that is injected into your view templates as locals, as well as the single templates.
