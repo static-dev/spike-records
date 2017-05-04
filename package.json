@@ -13,7 +13,7 @@
     "reshape": "^0.4.0",
     "reshape-loader": "^1.0.0",
     "rest": "^2.0.0",
-    "spike-util": "^1.0.0",
+    "spike-util": "1.1.0",
     "when": "^3.7.7"
   },
   "devDependencies": {
