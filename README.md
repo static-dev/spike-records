@@ -27,7 +27,7 @@ const standard = require('reshape-standard')
 const locals = {}
 
 module.exports = {
-  reshape: (ctx) => standard({ locals }),
+  reshape: standard({ locals: () => locals }),
   plugins: [new Records({
     addDataTo: locals,
     test: { file: 'data.json' }
