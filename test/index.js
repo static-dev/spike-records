@@ -13,7 +13,7 @@ test('loads data correctly', (t) => {
   return compileAndCheck({
     fixture: 'data',
     locals,
-    config: { addDataTo: locals, test: { data: { result: 'true' } } },
+    config: { addDataTo: locals, test: { data: { success: 'true' } } },
     verify: (_, publicPath) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       t.is(out.trim(), '<p>true</p>')
@@ -39,7 +39,7 @@ test('loads a url correctly', (t) => {
   return compileAndCheck({
     fixture: 'data',
     locals: locals,
-    config: { addDataTo: locals, test: { url: 'http://api.bycarrot.com/staff' } },
+    config: { addDataTo: locals, test: { url: 'http://api.bycarrot.com/v3/staff' } },
     verify: (_, publicPath, cb) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       t.is(out.trim(), '<p>true</p>')
@@ -76,8 +76,8 @@ test('transform option works', (t) => {
     config: {
       addDataTo: locals,
       test: {
-        data: { result: true },
-        transform: (data) => { return { result: false } }
+        data: { success: true },
+        transform: (data) => { return { success: false } }
       }
     },
     verify: (_, publicPath, cb) => {

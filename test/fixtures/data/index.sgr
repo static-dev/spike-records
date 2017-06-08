@@ -1,1 +1,1 @@
-p {{ test.result }}
+p {{ test.success }}
