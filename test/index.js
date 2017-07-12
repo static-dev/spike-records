@@ -27,7 +27,7 @@ test('loads a file correctly', (t) => {
     fixture: 'data',
     locals: locals,
     config: { addDataTo: locals, test: { file: '../testFile.json' } },
-    verify: (_, publicPath, cb) => {
+    verify: (_, publicPath) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       t.is(out.trim(), '<p>true</p>')
     }
@@ -40,7 +40,7 @@ test('loads a url correctly', (t) => {
     fixture: 'data',
     locals: locals,
     config: { addDataTo: locals, test: { url: 'http://api.bycarrot.com/v3/staff' } },
-    verify: (_, publicPath, cb) => {
+    verify: (_, publicPath) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       t.is(out.trim(), '<p>true</p>')
     }
@@ -61,7 +61,7 @@ test('loads a graphql endpoint correctly', (t) => {
         }
       }
     },
-    verify: (_, publicPath, cb) => {
+    verify: (_, publicPath) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       t.regex(out, /test/)
     }
@@ -80,7 +80,7 @@ test('transform option works', (t) => {
         transform: (data) => { return { success: false } }
       }
     },
-    verify: (_, publicPath, cb) => {
+    verify: (_, publicPath) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       t.is(out.trim(), '<p>false</p>')
     }
@@ -165,7 +165,7 @@ test('single template works with "path" and "template" params', (t) => {
         }
       }
     },
-    verify: (_, publicPath, cb) => {
+    verify: (_, publicPath) => {
       const index = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       const wow = fs.readFileSync(path.join(publicPath, 'posts/wow.html'), 'utf8')
       const amaze = fs.readFileSync(path.join(publicPath, 'posts/amaze.html'), 'utf8')
@@ -192,13 +192,36 @@ test('single template works with "transform" param', (t) => {
         }
       }
     },
-    verify: (_, publicPath, cb) => {
+    verify: (_, publicPath) => {
       const index = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       const wow = fs.readFileSync(path.join(publicPath, 'posts/wow.html'), 'utf8')
       const amaze = fs.readFileSync(path.join(publicPath, 'posts/amaze.html'), 'utf8')
       t.is(index.trim(), '<p>undefined</p>') // bc the transform is not global
       t.is(wow.trim(), '<p>wow</p>')
       t.is(amaze.trim(), '<p>amaze</p>')
+    }
+  })
+})
+
+test('template resolves include/layouts from its own path', (t) => {
+  const locals = {}
+  return compileAndCheck({
+    fixture: 'tpl_resolve',
+    locals: locals,
+    config: {
+      addDataTo: locals,
+      posts: {
+        data: { response: [{ title: 'wow' }] },
+        template: {
+          transform: (data) => data.response,
+          path: 'templates/tpl.sgr',
+          output: (item) => `posts/${item.title}.html`
+        }
+      }
+    },
+    verify: (_, publicPath) => {
+      const wow = fs.readFileSync(path.join(publicPath, 'posts/wow.html'), 'utf8')
+      t.is(wow.trim(), '<p>layout</p>\n<p>template</p>')
     }
   })
 })
