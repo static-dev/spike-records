@@ -47,6 +47,19 @@ test('loads a url correctly', (t) => {
   })
 })
 
+test('loads a url with transformRaw correctly', (t) => {
+  const locals = {}
+  return compileAndCheck({
+    fixture: 'data',
+    locals: locals,
+    config: { addDataTo: locals, test: { transformRaw: (data) => { return data.replace('])}while(1);</x>', '') }, url: 'https://medium.com/glassboard-blog/?format=json' } },
+    verify: (_, publicPath) => {
+      const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
+      t.is(out.trim(), '<p>true</p>')
+    }
+  })
+})
+
 test('loads a graphql endpoint correctly', (t) => {
   const locals = {}
   return compileAndCheck({
