@@ -112,7 +112,7 @@ module.exports = {
 
 ### Transform Raw
 
-If you want to transform the data from your source before it is processed by rest, for instance to remove cross site scripting projections, you can use this option. For example:
+If you want to transform the data from your source before it is processed by rest, for instance to remove cross site scripting protections, you can use this option. For example:
 
 ```js
 const Records = require('spike-records')
