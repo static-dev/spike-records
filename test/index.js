@@ -92,19 +92,10 @@ test('transformRaw option works', (t) => {
   return compileAndCheck({
     fixture: 'data',
     locals: locals,
-    config: {
-      addDataTo: locals,
-      test: {
-        data: { success: true },
-        transformRaw: (data) => {
-          data.success = 'false'
-          return data
-        },
-      }
-    },
+    config: { addDataTo: locals, test: { transformRaw: (data) => { return data.replace('])}while(1);</x>', '') }, url: 'https://medium.com/glassboard-blog/?format=json' } },
     verify: (_, publicPath) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
-      t.is(out.trim(), '<p>false</p>')
+      t.is(out.trim(), '<p>true</p>')
     }
   })
 })
