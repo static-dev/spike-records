@@ -21,27 +21,6 @@ test('loads data correctly', (t) => {
   })
 })
 
-test('loads data with transformRaw correctly', (t) => {
-  const locals = {}
-  return compileAndCheck({
-    fixture: 'data',
-    locals,
-    config: { addDataTo: locals,
-      test: {
-        transformRaw: (data) => {
-          data.success = 'true'
-          return data
-        }, 
-        data: { success: 'false' }
-      }
-    },
-    verify: (_, publicPath) => {
-      const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
-      t.is(out.trim(), '<p>true</p>')
-    }
-  })
-})
-
 test('loads a file correctly', (t) => {
   const locals = {}
   return compileAndCheck({
@@ -55,38 +34,12 @@ test('loads a file correctly', (t) => {
   })
 })
 
-test('loads a file with transformRaw correctly', (t) => {
-  const locals = {}
-  return compileAndCheck({
-    fixture: 'data',
-    locals: locals,
-    config: { addDataTo: locals, test: { transformRaw: (data) => { return data.replace('false', 'true') }, file: '../testFileTransformRaw.json' } },
-    verify: (_, publicPath) => {
-      const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
-      t.is(out.trim(), '<p>true</p>')
-    }
-  })
-})
-
 test('loads a url correctly', (t) => {
   const locals = {}
   return compileAndCheck({
     fixture: 'data',
     locals: locals,
     config: { addDataTo: locals, test: { url: 'http://api.bycarrot.com/v3/staff' } },
-    verify: (_, publicPath) => {
-      const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
-      t.is(out.trim(), '<p>true</p>')
-    }
-  })
-})
-
-test('loads a url with transformRaw correctly', (t) => {
-  const locals = {}
-  return compileAndCheck({
-    fixture: 'data',
-    locals: locals,
-    config: { addDataTo: locals, test: { transformRaw: (data) => { return data.replace('])}while(1);</x>', '') }, url: 'https://medium.com/glassboard-blog/?format=json' } },
     verify: (_, publicPath) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       t.is(out.trim(), '<p>true</p>')
@@ -115,28 +68,6 @@ test('loads a graphql endpoint correctly', (t) => {
   })
 })
 
-test('loads a graphql endpoint with transformRaw correctly', (t) => {
-  const locals = {}
-  return compileAndCheck({
-    fixture: 'graphql',
-    locals: locals,
-    config: {
-      addDataTo: locals,
-      test: {
-        transformRaw: (data) => { return data.replace('test', 'testing') },
-        graphql: {
-          url: 'https://api.graph.cool/simple/v1/cizz44m7pmezz016487cxed19',
-          query: '{ allPosts { description } }'
-        }
-      }
-    },
-    verify: (_, publicPath) => {
-      const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
-      t.regex(out, /testing/)
-    }
-  })
-})
-
 test('transform option works', (t) => {
   const locals = {}
   return compileAndCheck({
@@ -147,6 +78,28 @@ test('transform option works', (t) => {
       test: {
         data: { success: true },
         transform: (data) => { return { success: false } }
+      }
+    },
+    verify: (_, publicPath) => {
+      const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
+      t.is(out.trim(), '<p>false</p>')
+    }
+  })
+})
+
+test('transformRaw option works', (t) => {
+  const locals = {}
+  return compileAndCheck({
+    fixture: 'data',
+    locals: locals,
+    config: {
+      addDataTo: locals,
+      test: {
+        data: { success: true },
+        transformRaw: (data) => {
+          data.success = 'false'
+          return data
+        },
       }
     },
     verify: (_, publicPath) => {
