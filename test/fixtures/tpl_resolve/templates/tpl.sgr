@@ -1,3 +1,0 @@
-extends(src='../layout.sgr')
-  block(name='content')
-    p template

@@ -8,7 +8,7 @@ const htmlStandards = require('reshape-standard')
 
 const fixturesPath = path.join(__dirname, 'fixtures')
 
-test('loads data correctly', (t) => {
+test('loads data correctly', t => {
   const locals = {}
   return compileAndCheck({
     fixture: 'data',
@@ -21,7 +21,7 @@ test('loads data correctly', (t) => {
   })
 })
 
-test('loads a file correctly', (t) => {
+test('loads a file correctly', t => {
   const locals = {}
   return compileAndCheck({
     fixture: 'data',
@@ -34,12 +34,15 @@ test('loads a file correctly', (t) => {
   })
 })
 
-test('loads a url correctly', (t) => {
+test('loads a url correctly', t => {
   const locals = {}
   return compileAndCheck({
     fixture: 'data',
     locals: locals,
-    config: { addDataTo: locals, test: { url: 'http://api.bycarrot.com/v3/staff' } },
+    config: {
+      addDataTo: locals,
+      test: { url: 'http://api.bycarrot.com/v3/staff' }
+    },
     verify: (_, publicPath) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       t.is(out.trim(), '<p>true</p>')
@@ -47,7 +50,7 @@ test('loads a url correctly', (t) => {
   })
 })
 
-test('loads a graphql endpoint correctly', (t) => {
+test('loads a graphql endpoint correctly', t => {
   const locals = {}
   return compileAndCheck({
     fixture: 'graphql',
@@ -68,7 +71,7 @@ test('loads a graphql endpoint correctly', (t) => {
   })
 })
 
-test('transform option works', (t) => {
+test('transform option works', t => {
   const locals = {}
   return compileAndCheck({
     fixture: 'data',
@@ -77,7 +80,9 @@ test('transform option works', (t) => {
       addDataTo: locals,
       test: {
         data: { success: true },
-        transform: (data) => { return { success: false } }
+        transform: data => {
+          return { success: false }
+        }
       }
     },
     verify: (_, publicPath) => {
@@ -87,12 +92,20 @@ test('transform option works', (t) => {
   })
 })
 
-test('transformRaw option works', (t) => {
+test('transformRaw option works', t => {
   const locals = {}
   return compileAndCheck({
     fixture: 'data',
     locals: locals,
-    config: { addDataTo: locals, test: { transformRaw: (data) => { return data.replace('])}while(1);</x>', '') }, url: 'https://medium.com/glassboard-blog/?format=json' } },
+    config: {
+      addDataTo: locals,
+      test: {
+        transformRaw: data => {
+          return data.replace('])}while(1);</x>', '')
+        },
+        url: 'https://medium.com/glassboard-blog/?format=json'
+      }
+    },
     verify: (_, publicPath) => {
       const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
       t.is(out.trim(), '<p>true</p>')
@@ -100,9 +113,9 @@ test('transformRaw option works', (t) => {
   })
 })
 
-test.cb('single template errors with no "path" param', (t) => {
+test.cb('single template errors with no "path" param', t => {
   const locals = {}
-  const {project} = configProject('template', {
+  const { project } = configProject('template', {
     addDataTo: locals,
     posts: {
       data: [{ title: 'wow' }, { title: 'amaze' }],
@@ -113,7 +126,7 @@ test.cb('single template errors with no "path" param', (t) => {
 
   project.on('warning', t.end)
   project.on('compile', t.end)
-  project.on('error', (err) => {
+  project.on('error', err => {
     t.is(err.toString(), 'Error: missing template.path')
     t.end()
   })
@@ -121,9 +134,9 @@ test.cb('single template errors with no "path" param', (t) => {
   project.compile()
 })
 
-test.cb('single template errors with no "output" param', (t) => {
+test.cb('single template errors with no "output" param', t => {
   const locals = {}
-  const {project} = configProject('template', {
+  const { project } = configProject('template', {
     addDataTo: locals,
     posts: {
       data: [{ title: 'wow' }, { title: 'amaze' }],
@@ -134,7 +147,7 @@ test.cb('single template errors with no "output" param', (t) => {
 
   project.on('warning', t.end)
   project.on('compile', t.end)
-  project.on('error', (err) => {
+  project.on('error', err => {
     t.is(err.toString(), 'Error: missing template.output')
     t.end()
   })
@@ -142,20 +155,23 @@ test.cb('single template errors with no "output" param', (t) => {
   project.compile()
 })
 
-test.cb('single template errors with non-array data', (t) => {
+test.cb('single template errors with non-array data', t => {
   const locals = {}
-  const {project} = configProject('template', {
+  const { project } = configProject('template', {
     addDataTo: locals,
     posts: {
       data: 'foo',
-      template: { path: 'template.sgr', output: () => { return 'wow.html' } }
+      template: {
+        path: 'template.html',
+        output: () => 'wow.html'
+      }
     },
     locals
   })
 
   project.on('warning', t.end)
   project.on('compile', t.end)
-  project.on('error', (err) => {
+  project.on('error', err => {
     t.is(err.toString(), 'Error: template data is not an array')
     t.end()
   })
@@ -163,7 +179,7 @@ test.cb('single template errors with non-array data', (t) => {
   project.compile()
 })
 
-test('single template works with "path" and "template" params', (t) => {
+test('single template works with "path" and "template" params', t => {
   const locals = {}
   return compileAndCheck({
     fixture: 'template',
@@ -173,15 +189,21 @@ test('single template works with "path" and "template" params', (t) => {
       posts: {
         data: [{ title: 'wow' }, { title: 'amaze' }],
         template: {
-          path: 'template.sgr',
-          output: (item) => `posts/${item.title}.html`
+          path: 'template.html',
+          output: item => `posts/${item.title}.html`
         }
       }
     },
     verify: (_, publicPath) => {
       const index = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
-      const wow = fs.readFileSync(path.join(publicPath, 'posts/wow.html'), 'utf8')
-      const amaze = fs.readFileSync(path.join(publicPath, 'posts/amaze.html'), 'utf8')
+      const wow = fs.readFileSync(
+        path.join(publicPath, 'posts/wow.html'),
+        'utf8'
+      )
+      const amaze = fs.readFileSync(
+        path.join(publicPath, 'posts/amaze.html'),
+        'utf8'
+      )
       t.is(index.trim(), '<p>2</p>')
       t.is(wow.trim(), '<p>wow</p>')
       t.is(amaze.trim(), '<p>amaze</p>')
@@ -189,7 +211,7 @@ test('single template works with "path" and "template" params', (t) => {
   })
 })
 
-test('single template works with "transform" param', (t) => {
+test('single template works with "transform" param', t => {
   const locals = {}
   return compileAndCheck({
     fixture: 'template',
@@ -199,16 +221,22 @@ test('single template works with "transform" param', (t) => {
       posts: {
         data: { response: [{ title: 'wow' }, { title: 'amaze' }] },
         template: {
-          transform: (data) => data.response,
-          path: 'template.sgr',
-          output: (item) => `posts/${item.title}.html`
+          transform: data => data.response,
+          path: 'template.html',
+          output: item => `posts/${item.title}.html`
         }
       }
     },
     verify: (_, publicPath) => {
       const index = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
-      const wow = fs.readFileSync(path.join(publicPath, 'posts/wow.html'), 'utf8')
-      const amaze = fs.readFileSync(path.join(publicPath, 'posts/amaze.html'), 'utf8')
+      const wow = fs.readFileSync(
+        path.join(publicPath, 'posts/wow.html'),
+        'utf8'
+      )
+      const amaze = fs.readFileSync(
+        path.join(publicPath, 'posts/amaze.html'),
+        'utf8'
+      )
       t.is(index.trim(), '<p>undefined</p>') // bc the transform is not global
       t.is(wow.trim(), '<p>wow</p>')
       t.is(amaze.trim(), '<p>amaze</p>')
@@ -216,7 +244,7 @@ test('single template works with "transform" param', (t) => {
   })
 })
 
-test('template resolves include/layouts from its own path', (t) => {
+test('template resolves include/layouts from its own path', t => {
   const locals = {}
   return compileAndCheck({
     fixture: 'tpl_resolve',
@@ -226,14 +254,17 @@ test('template resolves include/layouts from its own path', (t) => {
       posts: {
         data: { response: [{ title: 'wow' }] },
         template: {
-          transform: (data) => data.response,
-          path: 'templates/tpl.sgr',
-          output: (item) => `posts/${item.title}.html`
+          transform: data => data.response,
+          path: 'templates/tpl.html',
+          output: item => `posts/${item.title}.html`
         }
       }
     },
     verify: (_, publicPath) => {
-      const wow = fs.readFileSync(path.join(publicPath, 'posts/wow.html'), 'utf8')
+      const wow = fs.readFileSync(
+        path.join(publicPath, 'posts/wow.html'),
+        'utf8'
+      )
       t.is(wow.trim(), '<p>layout</p>\n<p>template</p>')
     }
   })
@@ -251,14 +282,17 @@ test('template resolves include/layouts from its own path', (t) => {
  * @param  {Object} locals - locals to be passed to views
  * @return {Object} projectPath (str) and project (Spike instance)
  */
-function configProject (fixturePath, recordsConfig, locals) {
+function configProject(fixturePath, recordsConfig, locals) {
   const projectPath = path.join(fixturesPath, fixturePath)
   const project = new Spike({
     root: projectPath,
     entry: { main: path.join(projectPath, 'app.js') },
-    matchers: { html: '*(**/)*.sgr' },
-    reshape: htmlStandards({ locals: () => { return locals } }),
-    ignore: ['template.sgr'],
+    reshape: htmlStandards({
+      locals: () => {
+        return locals
+      }
+    }),
+    ignore: ['template.html'],
     plugins: [new Records(recordsConfig)]
   })
   return { projectPath, project }
@@ -270,7 +304,7 @@ function configProject (fixturePath, recordsConfig, locals) {
  * @param  {Spike} project - spike project instance
  * @return {Promise} promise for a compiled project
  */
-function compileProject (project) {
+function compileProject(project) {
   return new Promise((resolve, reject) => {
     project.on('error', reject)
     project.on('warning', reject)
@@ -290,17 +324,21 @@ function compileProject (project) {
  * passes webpack compile result data and the project's public path
  * @return {Promise} promise for completed compiled project
  */
-function compileAndCheck (opts) {
-  const {projectPath, project} = configProject(opts.fixture, opts.config, opts.locals)
+function compileAndCheck(opts) {
+  const { projectPath, project } = configProject(
+    opts.fixture,
+    opts.config,
+    opts.locals
+  )
   const publicPath = path.join(projectPath, 'public')
   return compileProject(project)
-    .then((data) => opts.verify(data, publicPath))
+    .then(data => opts.verify(data, publicPath))
     .then(() => rimrafPromise(publicPath))
 }
 
-function rimrafPromise (dir) {
+function rimrafPromise(dir) {
   return new Promise((resolve, reject) => {
-    rimraf(dir, (err) => {
+    rimraf(dir, err => {
       if (err) return reject(err)
       resolve()
     })
