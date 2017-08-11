@@ -87,6 +87,19 @@ test('transform option works', (t) => {
   })
 })
 
+test('transformRaw option works', (t) => {
+  const locals = {}
+  return compileAndCheck({
+    fixture: 'data',
+    locals: locals,
+    config: { addDataTo: locals, test: { transformRaw: (data) => { return data.replace('])}while(1);</x>', '') }, url: 'https://medium.com/glassboard-blog/?format=json' } },
+    verify: (_, publicPath) => {
+      const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
+      t.is(out.trim(), '<p>true</p>')
+    }
+  })
+})
+
 test.cb('single template errors with no "path" param', (t) => {
   const locals = {}
   const {project} = configProject('template', {

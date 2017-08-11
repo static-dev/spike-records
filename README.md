@@ -110,6 +110,25 @@ module.exports = {
 }
 ```
 
+### Transform Raw
+
+If you want to transform the data from your source before it is processed by rest, for instance to remove cross site scripting protections, you can use this option. For example:
+
+```js
+const Records = require('spike-records')
+const locals = {}
+
+module.exports = {
+  plugins: [new Records({
+    addDataTo: locals,
+    blog: {
+      transformRaw: (data) => { return data.replace('])}while(1);</x>', '') },
+      url: 'https://medium.com/glassboard-blog/?format=json'
+    }
+  })]
+}
+```
+
 ### Template
 
 Using the template option allows you to write objects returned from records to single page templates. For example, if you are trying to render a blog as static, you might want each `post` returned from the API to be rendered as a single page by itself.
