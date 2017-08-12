@@ -43,10 +43,12 @@ In order to use the results from spike-records, you must pass it an object, whic
 
 I know this is an unusual pattern for a javascript library, but the way it works is quite effective in this particular system, and affords a lot of flexibility and power.
 
-The records plugin accepts an object, and each key in the object (other than `addDataTo`) should contain another object as it's value, with either a `file`, `url`, or `data` property. For example:
+The records plugin accepts an object, and each key in the object (other than `addDataTo`) should contain another object as it's value, with either a `file`, `url`, `data`, or `graphql` key. For example:
 
 ```js
-const Records = require('spike-records')
+const Records = require('spike-records');
+let promiseFn = require('./promiseModule'); //for promises
+const menuObj = {pepperoniPizza: 10.50, cheesePizza: 8.50, cinaStix: 5.00}
 const locals = {}
 
 module.exports = {
@@ -55,7 +57,8 @@ module.exports = {
     one: { file: 'data.json' },
     two: { url: 'http://api.carrotcreative.com/staff' },
     three: { data: { foo: 'bar' } },
-    four: {
+    four: { data: promiseFn(menuObj) },
+    five: {
       graphql: {
         url: 'http://localhost:1234',
         query: 'query { allPosts { title } }',
@@ -85,7 +88,49 @@ Now let's get into some more details for each of the data types.
 
 ### Data
 
-The most straightforward of the options, this will just pass the data right through to the locals. Also if you provide a A+ compliant promise for a value, it will be resolved and passed in to the template.
+The most straightforward of the options, this will just pass the data right through to the locals. Also if you provide an A+ compliant promise for a value, it will be resolved and passed in to the template.
+
+#### Promises
+
+If you're new to promises, this [Google Developers](https://developers.google.com/web/fundamentals/getting-started/primers/promises) article should get you up to speed. The following example is similar to that article. Since we're using Webpack let's keep app.js clean by requiring our promise function from a module we'll create named `promiseModule`. You have the power of Node.js, Webpack, and Spike available to you in this module, but here's a simple example.
+
+##### promiseModule.js
+Here's our module, which exports one function that returns a promise that will either be resolved or rejected. This is the module that was required above.
+```js
+module.exports = function(obj) {
+  return new Promise((resolve, reject) => {
+    //As an example, let's create a new pizza menu showing their type and price.
+    let pizzas = new Array;
+    for(var prop in obj) {
+      if(${prop}.includes('Pizza')) {
+        pizzas.push({
+          type: ${prop}.replace("Pizza", ""),
+          price: "$".concat(${obj[prop]})
+        });
+      }
+    }
+    //Pizza Menu
+    if(pizzas.length > 0) {
+      resolve(pizzas);
+    } else {
+      reject(Error("There's no pizza :("));
+    }
+  });
+};
+```
+##### app.js
+This particular promises example requires three changes to app.js. As seen above:
+1. The promise function was required with `let promiseFn = require('./promiseModule');`.
+2. `menuObj` was defined before it was passed to promiseFn().
+3. `promiseFn(menuObj)` was provided as the data key's value.
+
+##### index.sgr
+Accessing the json is simple in a loop:
+```js
+each(loop='pizza of pizzas')
+    p {{pizza.type}}, {{pizza.price}}
+```
+
 
 ## Additional Options
 
