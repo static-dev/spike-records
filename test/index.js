@@ -8,6 +8,26 @@ const htmlStandards = require('reshape-standard')
 
 const fixturesPath = path.join(__dirname, 'fixtures')
 
+
+test('loads callback correctly', t => {
+  const locals = {}
+  function myFunc () {
+    return new Promise((resolve, reject) => {
+      return resolve ({success: 'true'})
+    })
+  }
+
+  return compileAndCheck({
+    fixture: 'data',
+    locals,
+    config: { addDataTo: locals, test: { callback: myFunc } },
+    verify: (_, publicPath) => {
+      const out = fs.readFileSync(path.join(publicPath, 'index.html'), 'utf8')
+      t.is(out.trim(), '<p>true</p>')
+    }
+  })
+})
+
 test('loads data correctly', t => {
   const locals = {}
   return compileAndCheck({
