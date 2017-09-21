@@ -43,11 +43,15 @@ In order to use the results from spike-records, you must pass it an object, whic
 
 I know this is an unusual pattern for a javascript library, but the way it works is quite effective in this particular system, and affords a lot of flexibility and power.
 
-The records plugin accepts an object, and each key in the object (other than `addDataTo`) should contain another object as it's value, with either a `file`, `url`, or `data` property. For example:
+The records plugin accepts an object, and each key in the object (other than `addDataTo`) should contain another object as it's value, with either a `file`, `url`, `data`, `graphql` or `callback` property. For example:
 
 ```js
 const Records = require('spike-records')
 const locals = {}
+function myFunc () {
+  // call any arbitrary API or computation to produce data
+  return new Promise((resolve, reject) => {...}
+}
 
 module.exports = {
   plugins: [new Records({
@@ -62,7 +66,8 @@ module.exports = {
         variables: 'xxx', // optional
         headers: { authorization: 'Bearer xxx' } // optional
       }
-    }
+    },
+    five: { callback: myFunc }
   })]
 }
 ```
