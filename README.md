@@ -50,7 +50,7 @@ const Records = require('spike-records')
 const locals = {}
 function myFunc () {
   // call any arbitrary API or computation to produce data
-  return new Promise((resolve, reject) => {...}
+  return new Promise((resolve, reject) => {...})
 }
 
 module.exports = {
