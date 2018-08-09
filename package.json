@@ -17,14 +17,14 @@
     "when": "^3.7.7"
   },
   "devDependencies": {
-    "ava": "^0.21.0",
-    "coveralls": "^2.13.1",
-    "nyc": "^11.1.0",
+    "ava": "^0.25.0",
+    "coveralls": "^3.0.2",
+    "nyc": "^12.0.2",
     "posthtml-exp": "^0.9.0",
-    "reshape-standard": "^3.1.0",
-    "rimraf": "^2.5.4",
-    "spike-core": "^2.2.0",
-    "standard": "^10.0.3"
+    "reshape-standard": "^3.3.0",
+    "rimraf": "^2.6.2",
+    "spike-core": "^2.3.0",
+    "standard": "^11.0.1"
   },
   "engines": {
     "node": ">= 6.0.0"
