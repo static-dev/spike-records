@@ -24,7 +24,7 @@
     "reshape-standard": "^3.3.0",
     "rimraf": "^2.6.2",
     "spike-core": "^2.3.0",
-    "standard": "^11.0.1"
+    "standard": "^12.0.0"
   },
   "engines": {
     "node": ">= 6.0.0"
